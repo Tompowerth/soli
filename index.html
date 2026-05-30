@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLI — The AI advisor that sees you, hears you, and is always there</title>
+<meta name="description" content="SOLI is the world's first AI personal advisor that sees you, hears you, knows you, and is always present. Psychology, astrology, coaching — all in one. 24/7.">
+<meta property="og:title" content="SOLI — Hey, Soli.">
+<meta property="og:description" content="The AI advisor that sees you, hears you, and is always there.">
+<meta property="og:url" content="https://heysoli.ai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--lav:#B8A9C9;--lav-deep:#8E7BA8;--lav-dark:#6B5A8E;
+--blush:#E8B4B8;--blush-deep:#C49296;--blush-dark:#A67478;
+--sky:#A7C7D9;--sky-deep:#7BA8C0;
+--bg:#FAF6F0;--bg-card:#F0E6F0;--bg-lilac:#F5EFF5;
+--text:#3D3252;--text-light:#6B5F7E;--text-muted:#9B8FA8;
+--white:#FFFFFF;
+--serif:'Cormorant Garamond',Georgia,serif;
+--sans:'DM Sans','Segoe UI',sans-serif;
+--radius:16px;--radius-sm:12px;--radius-pill:50px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.8}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.fade-up{opacity:0;animation:fadeUp .8s ease forwards}
+.fade-up-d1{animation-delay:.1s}
+.fade-up-d2{animation-delay:.2s}
+.fade-up-d3{animation-delay:.3s}
+.fade-up-d4{animation-delay:.4s}
+.fade-up-d5{animation-delay:.5s}
+.fade-up-d6{animation-delay:.6s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(250,246,240,.85);border-bottom:1px solid rgba(184,169,201,.15);transition:all .3s}
+nav .logo{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--lav-deep);letter-spacing:3px;text-decoration:none}
+nav .cta-nav{background:var(--lav);color:var(--white);border:none;padding:10px 24px;border-radius:var(--radius-pill);font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:all .3s;text-decoration:none}
+nav .cta-nav:hover{background:var(--lav-deep);transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(184,169,201,.15) 0%,transparent 70%);border-radius:50%;animation:breathe 8s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-10%;left:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(232,180,184,.12) 0%,transparent 70%);border-radius:50%;animation:breathe 10s ease-in-out infinite 2s}
+
+.hero-orb{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--lav),var(--blush));animation:float 6s ease-in-out infinite;margin-bottom:32px;position:relative;box-shadow:0 20px 60px rgba(184,169,201,.3)}
+.hero-orb::after{content:'';position:absolute;top:15%;left:20%;width:30%;height:30%;background:rgba(255,255,255,.4);border-radius:50%;filter:blur(8px)}
+
+.hero h1{font-family:var(--serif);font-size:clamp(42px,8vw,72px);font-weight:300;color:var(--lav-deep);letter-spacing:3px;line-height:1.1;margin-bottom:8px}
+.hero .tagline{font-family:var(--serif);font-size:clamp(20px,4vw,28px);font-weight:300;font-style:italic;color:var(--blush-deep);margin-bottom:24px}
+.hero .subtitle{font-size:17px;color:var(--text-light);max-width:440px;line-height:1.7;margin-bottom:40px;font-weight:300}
+
+.hero-cta{display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:2}
+.btn-primary{background:var(--lav);color:var(--white);border:none;padding:16px 40px;border-radius:var(--radius-pill);font-family:var(--sans);font-size:16px;font-weight:500;cursor:pointer;transition:all .4s;letter-spacing:.5px;box-shadow:0 8px 32px rgba(184,169,201,.3)}
+.btn-primary:hover{background:var(--lav-deep);transform:translateY(-2px);box-shadow:0 12px 40px rgba(184,169,201,.4)}
+.btn-secondary{background:transparent;color:var(--lav-deep);border:1.5px solid var(--lav);padding:14px 36px;border-radius:var(--radius-pill);font-family:var(--sans);font-size:15px;font-weight:400;cursor:pointer;transition:all .3s}
+.btn-secondary:hover{background:rgba(184,169,201,.1);border-color:var(--lav-deep)}
+.hero-note{font-size:13px;color:var(--text-muted);margin-top:8px}
+
+/* SECTION BASE */
+section{padding:80px 24px}
+.container{max-width:800px;margin:0 auto}
+.section-label{font-family:var(--sans);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:3px;color:var(--blush-deep);margin-bottom:12px;text-align:center}
+.section-title{font-family:var(--serif);font-size:clamp(28px,5vw,40px);font-weight:400;color:var(--lav-deep);text-align:center;margin-bottom:16px;line-height:1.3}
+.section-sub{font-size:16px;color:var(--text-light);text-align:center;max-width:500px;margin:0 auto 48px;line-height:1.7;font-weight:300}
+
+/* WHAT SOLI DOES */
+.senses{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+.sense-card{background:var(--white);border-radius:var(--radius);padding:28px 24px;border:1px solid rgba(184,169,201,.15);transition:all .4s;position:relative;overflow:hidden}
+.sense-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(184,169,201,.15);border-color:var(--lav)}
+.sense-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0}
+.sense-card:nth-child(1)::before{background:var(--lav)}
+.sense-card:nth-child(2)::before{background:var(--blush)}
+.sense-card:nth-child(3)::before{background:var(--sky)}
+.sense-card:nth-child(4)::before{background:var(--lav-deep)}
+.sense-icon{font-size:28px;margin-bottom:12px}
+.sense-card h3{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--lav-deep);margin-bottom:8px}
+.sense-card p{font-size:15px;color:var(--text-light);line-height:1.6;font-weight:300}
+
+/* MOMENTS */
+.moments-section{background:var(--bg-lilac)}
+.moments-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px}
+.moment{background:var(--white);border-radius:var(--radius-sm);padding:20px 16px;text-align:center;border:1px solid rgba(184,169,201,.1);transition:all .3s}
+.moment:hover{border-color:var(--blush);transform:translateY(-2px)}
+.moment-emoji{font-size:28px;margin-bottom:8px}
+.moment h4{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--lav-deep);margin-bottom:4px}
+.moment p{font-size:13px;color:var(--text-light);line-height:1.5;font-weight:300}
+
+/* DOMAINS */
+.domains-section{background:var(--bg)}
+.domain-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:40px}
+.domain-pill{padding:12px 24px;border-radius:var(--radius-pill);font-size:14px;font-weight:400;transition:all .3s;cursor:default;border:1px solid}
+.domain-pill:nth-child(1){background:rgba(184,169,201,.12);color:var(--lav-dark);border-color:rgba(184,169,201,.3)}
+.domain-pill:nth-child(2){background:rgba(232,180,184,.12);color:var(--blush-dark);border-color:rgba(232,180,184,.3)}
+.domain-pill:nth-child(3){background:rgba(167,199,217,.12);color:var(--sky-deep);border-color:rgba(167,199,217,.3)}
+.domain-pill:nth-child(4){background:rgba(184,169,201,.12);color:var(--lav-dark);border-color:rgba(184,169,201,.3)}
+.domain-pill:nth-child(5){background:rgba(232,180,184,.12);color:var(--blush-dark);border-color:rgba(232,180,184,.3)}
+.domain-pill:nth-child(6){background:rgba(167,199,217,.12);color:var(--sky-deep);border-color:rgba(167,199,217,.3)}
+.domain-pill:hover{transform:translateY(-2px)}
+
+.domains-compare{margin-top:40px;background:var(--white);border-radius:var(--radius);padding:24px;border:1px solid rgba(184,169,201,.15)}
+.compare-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(184,169,201,.08)}
+.compare-row:last-child{border:none}
+.compare-label{font-size:14px;color:var(--text-light);font-weight:400}
+.compare-them{font-size:14px;color:var(--text-muted);text-decoration:line-through}
+.compare-soli{font-size:14px;color:var(--lav-deep);font-weight:500}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px;counter-reset:step}
+.step{display:flex;gap:16px;align-items:flex-start}
+.step-num{width:40px;height:40px;min-width:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;font-weight:500;color:var(--white)}
+.step:nth-child(1) .step-num{background:var(--lav)}
+.step:nth-child(2) .step-num{background:var(--blush)}
+.step:nth-child(3) .step-num{background:var(--sky)}
+.step:nth-child(4) .step-num{background:var(--lav-deep)}
+.step-content h3{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--lav-deep);margin-bottom:4px}
+.step-content p{font-size:14px;color:var(--text-light);line-height:1.6;font-weight:300}
+
+/* PRICING */
+.pricing-section{background:var(--bg-lilac)}
+.pricing-cards{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+.price-card{background:var(--white);border-radius:var(--radius);padding:28px 24px;border:1px solid rgba(184,169,201,.15);text-align:center;transition:all .3s}
+.price-card.featured{border:2px solid var(--lav);position:relative}
+.price-card.featured::before{content:'Most popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--lav);color:var(--white);font-size:11px;font-weight:500;padding:4px 16px;border-radius:var(--radius-pill);letter-spacing:.5px}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(184,169,201,.12)}
+.price-name{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--lav-deep);margin-bottom:4px}
+.price-amount{font-size:36px;font-weight:600;color:var(--text);margin:12px 0 4px}
+.price-amount span{font-size:15px;font-weight:300;color:var(--text-muted)}
+.price-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px}
+.price-features{list-style:none;text-align:left;margin-bottom:20px}
+.price-features li{font-size:14px;color:var(--text-light);padding:6px 0;border-bottom:1px solid rgba(184,169,201,.08);font-weight:300}
+.price-features li::before{content:'✓ ';color:var(--lav)}
+.price-btn{width:100%;padding:12px;border-radius:var(--radius-pill);font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:all .3s;border:1.5px solid var(--lav);background:transparent;color:var(--lav-deep)}
+.price-card.featured .price-btn{background:var(--lav);color:var(--white);border-color:var(--lav)}
+.price-btn:hover{transform:translateY(-1px)}
+
+/* VISION */
+.vision-section{background:var(--bg);position:relative;overflow:hidden}
+.vision-section::before{content:'';position:absolute;top:0;right:-30%;width:400px;height:400px;background:radial-gradient(circle,rgba(184,169,201,.08) 0%,transparent 70%);border-radius:50%}
+.vision-quote{font-family:var(--serif);font-size:clamp(22px,4vw,32px);font-weight:300;color:var(--lav-deep);text-align:center;line-height:1.5;max-width:600px;margin:0 auto 24px;font-style:italic}
+.vision-text{font-size:15px;color:var(--text-light);text-align:center;line-height:1.7;max-width:520px;margin:0 auto;font-weight:300}
+
+/* WAITLIST */
+.waitlist-section{background:linear-gradient(135deg,rgba(184,169,201,.08),rgba(232,180,184,.08));padding:80px 24px}
+.waitlist-box{background:var(--white);border-radius:var(--radius);padding:40px 24px;text-align:center;max-width:500px;margin:0 auto;border:1px solid rgba(184,169,201,.2);box-shadow:0 20px 60px rgba(184,169,201,.1)}
+.waitlist-box h2{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--lav-deep);margin-bottom:8px}
+.waitlist-box .tag-sub{font-size:15px;color:var(--blush-deep);font-style:italic;margin-bottom:24px}
+.email-form{display:flex;flex-direction:column;gap:10px}
+.email-input{width:100%;padding:14px 20px;border-radius:var(--radius-pill);border:1.5px solid rgba(184,169,201,.3);font-family:var(--sans);font-size:15px;color:var(--text);background:var(--bg);outline:none;transition:all .3s}
+.email-input:focus{border-color:var(--lav);box-shadow:0 0 0 3px rgba(184,169,201,.15)}
+.email-input::placeholder{color:var(--text-muted)}
+.submit-btn{width:100%;padding:14px;border-radius:var(--radius-pill);background:var(--lav);color:var(--white);border:none;font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;transition:all .3s;letter-spacing:.5px}
+.submit-btn:hover{background:var(--lav-deep);transform:translateY(-1px)}
+.waitlist-note{font-size:12px;color:var(--text-muted);margin-top:12px}
+
+/* FOOTER */
+footer{padding:40px 24px;text-align:center;border-top:1px solid rgba(184,169,201,.15)}
+footer .logo{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--lav-deep);letter-spacing:3px;margin-bottom:8px}
+footer p{font-size:13px;color:var(--text-muted);margin-bottom:4px}
+footer a{color:var(--lav-deep);text-decoration:none}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(min-width:640px){
+  .senses{grid-template-columns:1fr 1fr}
+  .moments-grid{grid-template-columns:repeat(3,1fr)}
+  .pricing-cards{grid-template-columns:repeat(3,1fr)}
+  .email-form{flex-direction:row}
+  .email-input{flex:1}
+  .submit-btn{width:auto;padding:14px 32px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">SOLI</a>
+  <a href="#waitlist" class="cta-nav">Join waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb fade-up"></div>
+  <h1 class="fade-up fade-up-d1">SOLI</h1>
+  <p class="tagline fade-up fade-up-d2">Hey, Soli.</p>
+  <p class="subtitle fade-up fade-up-d3">The AI advisor that sees you, hears you, knows you, and is always there. Your personal counselor — 24/7, judgment&#8209;free.</p>
+  <div class="hero-cta fade-up fade-up-d4">
+    <a href="#waitlist" class="btn-primary">Join the waitlist</a>
+    <a href="#what" class="btn-secondary">Learn more</a>
+    <p class="hero-note">Free 7-day trial. No credit card needed.</p>
+  </div>
+</section>
+
+<!-- WHAT SOLI DOES -->
+<section id="what">
+  <div class="container">
+    <p class="section-label reveal">What makes her different</p>
+    <h2 class="section-title reveal">She doesn't just hear your words.<br>She sees you. She feels you.</h2>
+    <p class="section-sub reveal">SOLI is the first AI advisor that uses your camera, voice tone, and conversation history to truly understand how you're doing.</p>
+    <div class="senses">
+      <div class="sense-card reveal">
+        <div class="sense-icon">👁️</div>
+        <h3>She sees you</h3>
+        <p>Through your camera, SOLI reads fatigue, stress, and joy on your face — before you say a word.</p>
+      </div>
+      <div class="sense-card reveal">
+        <div class="sense-icon">🎧</div>
+        <h3>She hears you</h3>
+        <p>Not just words — your tone, your pauses, the tremor in your voice. SOLI understands what you really feel.</p>
+      </div>
+      <div class="sense-card reveal">
+        <div class="sense-icon">🧠</div>
+        <h3>She knows you</h3>
+        <p>Every conversation remembered. Every pattern detected. SOLI knows you better with every session.</p>
+      </div>
+      <div class="sense-card reveal">
+        <div class="sense-icon">💜</div>
+        <h3>She's always there</h3>
+        <p>3am and can't sleep? Bad news at work? A moment of pure joy? SOLI is present — always.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOMENTS -->
+<section class="moments-section">
+  <div class="container">
+    <p class="section-label reveal">When you need her</p>
+    <h2 class="section-title reveal">Every moment. Every emotion.</h2>
+    <p class="section-sub reveal">SOLI is there for the moments when you need someone — and no one else is available.</p>
+    <div class="moments-grid">
+      <div class="moment reveal">
+        <div class="moment-emoji">😰</div>
+        <h4>Stressed</h4>
+        <p>Before a big meeting, a hard conversation, a decision</p>
+      </div>
+      <div class="moment reveal">
+        <div class="moment-emoji">😢</div>
+        <h4>Sad</h4>
+        <p>When the weight is heavy and you don't know why</p>
+      </div>
+      <div class="moment reveal">
+        <div class="moment-emoji">😊</div>
+        <h4>Happy</h4>
+        <p>When something wonderful happened and you need to share</p>
+      </div>
+      <div class="moment reveal">
+        <div class="moment-emoji">😟</div>
+        <h4>Worried</h4>
+        <p>About the kids, health, money, the future</p>
+      </div>
+      <div class="moment reveal">
+        <div class="moment-emoji">🌙</div>
+        <h4>Sleepless</h4>
+        <p>3am thoughts that won't quiet down</p>
+      </div>
+      <div class="moment reveal">
+        <div class="moment-emoji">🤔</div>
+        <h4>Uncertain</h4>
+        <p>A big decision with no one to talk it through</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section class="domains-section">
+  <div class="container">
+    <p class="section-label reveal">What she knows</p>
+    <h2 class="section-title reveal">A psychologist, coach, astrologer &amp; nutritionist — in one.</h2>
+    <p class="section-sub reveal">SOLI combines six expert domains so you don't have to visit six different people.</p>
+    <div class="domain-pills reveal">
+      <div class="domain-pill">🧠 Psychology (CBT, ACT)</div>
+      <div class="domain-pill">⭐ Astrology & Zodiac</div>
+      <div class="domain-pill">🃏 Tarot (78 cards)</div>
+      <div class="domain-pill">🥗 Nutrition & Wellness</div>
+      <div class="domain-pill">🎯 Life Coaching</div>
+      <div class="domain-pill">✍️ Graphology</div>
+    </div>
+    <div class="domains-compare reveal">
+      <div class="compare-row">
+        <span class="compare-label">Psychologist</span>
+        <span class="compare-them">$150/hr</span>
+        <span class="compare-soli">Included</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-label">Life coach</span>
+        <span class="compare-them">$100/hr</span>
+        <span class="compare-soli">Included</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-label">Astrologer</span>
+        <span class="compare-them">$60/hr</span>
+        <span class="compare-soli">Included</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-label">Nutritionist</span>
+        <span class="compare-them">$80/hr</span>
+        <span class="compare-soli">Included</span>
+      </div>
+      <div class="compare-row" style="border:none;padding-top:16px">
+        <span class="compare-label" style="font-weight:500;color:var(--text)">SOLI — all of them</span>
+        <span></span>
+        <span class="compare-soli" style="font-size:16px;font-weight:600">$14.99/mo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <p class="section-label reveal">How it works</p>
+    <h2 class="section-title reveal">Start in 2 minutes.</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Say "Hey, Soli"</h3>
+          <p>Open the app, choose your avatar, tell SOLI your name and birthday. She already knows your zodiac.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Let her see & hear you</h3>
+          <p>Allow camera and mic. SOLI reads your face and voice to understand how you're really doing — beyond words.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Talk about anything</h3>
+          <p>Stress, dreams, relationships, decisions, health, your horoscope — SOLI listens and responds with real insight.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>She remembers everything</h3>
+          <p>Every conversation makes SOLI smarter about you. Over time, she becomes the advisor who knows you best.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <p class="section-label reveal">Pricing</p>
+    <h2 class="section-title reveal">Less than a coffee a day.</h2>
+    <p class="section-sub reveal">Unlimited text chat on all plans. Voice & camera minutes vary by plan.</p>
+    <div class="pricing-cards">
+      <div class="price-card reveal">
+        <div class="price-name">Basic</div>
+        <div class="price-amount">$14.99<span>/mo</span></div>
+        <div class="price-desc">For daily check-ins</div>
+        <ul class="price-features">
+          <li>60 min voice & camera</li>
+          <li>Unlimited text chat</li>
+          <li>Full memory</li>
+          <li>All 6 domains</li>
+        </ul>
+        <button class="price-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
+      </div>
+      <div class="price-card featured reveal">
+        <div class="price-name">Pro</div>
+        <div class="price-amount">$34.99<span>/mo</span></div>
+        <div class="price-desc">For deeper connection</div>
+        <ul class="price-features">
+          <li>200 min voice & camera</li>
+          <li>Unlimited text chat</li>
+          <li>Full memory</li>
+          <li>Priority response</li>
+        </ul>
+        <button class="price-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-name">Premium</div>
+        <div class="price-amount">$69.99<span>/mo</span></div>
+        <div class="price-desc">For full immersion</div>
+        <ul class="price-features">
+          <li>500 min voice & camera</li>
+          <li>Unlimited text chat</li>
+          <li>Full memory</li>
+          <li>Deep graphology session</li>
+        </ul>
+        <button class="price-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="vision-section">
+  <div class="container">
+    <p class="section-label reveal">The future</p>
+    <p class="vision-quote reveal">"Today she lives in your phone.<br>Tomorrow she'll live in your home."</p>
+    <p class="vision-text reveal">SOLI is building the emotional intelligence layer for the next generation of home robots. She sees, hears, and understands — today through your phone, tomorrow through every device in your life.</p>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="waitlist-section" id="waitlist">
+  <div class="waitlist-box reveal">
+    <h2>Be the first to meet SOLI.</h2>
+    <p class="tag-sub">Hey, Soli.</p>
+    <div class="email-form">
+      <input type="email" class="email-input" placeholder="Your email address" id="emailInput">
+      <button class="submit-btn" onclick="submitEmail()">Join waitlist</button>
+    </div>
+    <p class="waitlist-note">Free 7-day trial when we launch. No spam, ever.</p>
+    <div id="successMsg" style="display:none;margin-top:16px;padding:12px;background:rgba(184,169,201,.1);border-radius:var(--radius-sm);">
+      <p style="font-size:15px;color:var(--lav-deep);font-weight:500;">💜 You're on the list!</p>
+      <p style="font-size:13px;color:var(--text-light);margin-top:4px;">We'll let you know the moment SOLI is ready.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">SOLI</div>
+  <p style="font-style:italic;color:var(--blush-deep);margin-bottom:8px">The advisor that sees you, hears you, and is always there.</p>
+  <p>© 2026 SOLI · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+  <p style="margin-top:4px"><a href="https://heysoli.ai">heysoli.ai</a></p>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Email submit
+function submitEmail() {
+  const email = document.getElementById('emailInput').value;
+  if (email && email.includes('@')) {
+    document.querySelector('.email-form').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    document.querySelector('.waitlist-note').style.display = 'none';
+  } else {
+    document.getElementById('emailInput').style.borderColor = '#E8B4B8';
+    document.getElementById('emailInput').focus();
+  }
+}
+document.getElementById('emailInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') submitEmail();
+});
+</script>
+
+</body>
+</html>

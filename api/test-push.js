@@ -43,9 +43,14 @@ module.exports = async function handler(req, res) {
       return res.status(200).json(result);
     }
 
+    result.steps.push('fixing vapid keys');
+    // Convert standard Base64 to URL-safe Base64
+    vapidPublic = vapidPublic.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    vapidPrivate = vapidPrivate.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    result.vapidPublicLength = vapidPublic.length;
+    result.vapidPublicPreview = vapidPublic.substring(0, 10) + '...';
+
     result.steps.push('sending push');
-    vapidPublic = vapidPublic.replace(/=+$/, '');
-    vapidPrivate = vapidPrivate.replace(/=+$/, '');
     webpush.setVapidDetails('mailto:hello@heysoli.ai', vapidPublic, vapidPrivate);
     var sub = typeof subs[0].subscription === 'string' ? JSON.parse(subs[0].subscription) : subs[0].subscription;
     result.endpoint = sub.endpoint ? sub.endpoint.substring(0, 60) + '...' : 'MISSING';

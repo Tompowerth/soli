@@ -35,7 +35,7 @@ var HALLUCINATION_PATTERNS = [
 
 // --- VAD: Check if PCM buffer has speech-level energy ---
 function hasVoiceActivity(pcmBuffer, threshold) {
-  if (!threshold) threshold = 300; // RMS threshold for 16-bit PCM
+  if (!threshold) threshold = 150; // RMS threshold for 16-bit PCM (lowered to avoid blocking soft speech)
   if (pcmBuffer.length < 640) return false; // Less than 20ms at 16kHz = too short
 
   var samples = pcmBuffer.length / 2; // 16-bit = 2 bytes per sample
@@ -53,7 +53,7 @@ function hasVoiceActivity(pcmBuffer, threshold) {
 
   // Also check: if peak is very low, it's definitely silence
   // 16-bit range is -32768 to 32767
-  if (peakAmplitude < 200) return false;
+  if (peakAmplitude < 100) return false;
 
   return rms >= threshold;
 }

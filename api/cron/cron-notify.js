@@ -27,8 +27,8 @@ module.exports = async function handler(req, res) {
   }
 
   // Convert standard Base64 to URL-safe Base64
-  vapidPublic = vapidPublic.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  vapidPrivate = vapidPrivate.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  vapidPublic = vapidPublic.trim().replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  vapidPrivate = vapidPrivate.trim().replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 
   webpush.setVapidDetails(
     'mailto:hello@heysoli.ai',

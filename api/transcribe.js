@@ -110,7 +110,7 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ transcript: "", filtered: "too_short" });
     }
 
-    if (!hasVoiceActivity(pcmBuffer, 300)) {
+    if (!hasVoiceActivity(pcmBuffer, 150)) {
       return res.status(200).json({ transcript: "", filtered: "silence" });
     }
 

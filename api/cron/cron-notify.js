@@ -26,6 +26,10 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'Missing VAPID keys' });
   }
 
+  // Strip Base64 padding — web-push requires URL-safe Base64 without "="
+  vapidPublic = vapidPublic.replace(/=+$/, '');
+  vapidPrivate = vapidPrivate.replace(/=+$/, '');
+
   webpush.setVapidDetails(
     'mailto:hello@heysoli.ai',
     vapidPublic,

@@ -44,6 +44,8 @@ module.exports = async function handler(req, res) {
     }
 
     result.steps.push('sending push');
+    vapidPublic = vapidPublic.replace(/=+$/, '');
+    vapidPrivate = vapidPrivate.replace(/=+$/, '');
     webpush.setVapidDetails('mailto:hello@heysoli.ai', vapidPublic, vapidPrivate);
     var sub = typeof subs[0].subscription === 'string' ? JSON.parse(subs[0].subscription) : subs[0].subscription;
     result.endpoint = sub.endpoint ? sub.endpoint.substring(0, 60) + '...' : 'MISSING';

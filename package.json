@@ -1,0 +1,10 @@
+{
+  "name": "soli",
+  "version": "3.0.0",
+  "private": true,
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "web-push": "^3.6.7"
+  }
+}
